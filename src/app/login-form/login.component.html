@@ -1,0 +1,27 @@
+
+<section>
+  <div id="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <div class="row mx-auto text-center" *ngIf="isSignedIn">
+          <div class="row">
+            <div class="row mx-auto text-center">
+              <img [src]=user.imageUrl>
+            </div>
+            <div class="row mx-auto text-center">
+              {{user.name}}
+            </div>
+            <div class="row mx-auto text-center">
+              {{user.email}}
+            </div>
+          </div>
+          <button class="btn btn-danger" id="googleLogoutBtn" (click)="signOutUser()">Logout</button>
+        </div>
+        <div class="row mx-auto text-center" *ngIf="!isSignedIn">
+          <h3>Please Login Below</h3>
+          <button class="g-signin2" id="googleLoginBtn" (click)="getSignedInUser()">Sign In</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
