@@ -1,3 +1,9 @@
 .row{
   display: block;
 }
+
+.align-center{
+  margin: auto;
+  width: fit-content;
+
+}
