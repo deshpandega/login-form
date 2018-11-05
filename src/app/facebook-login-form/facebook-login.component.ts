@@ -12,6 +12,7 @@ export class FacebookLoginComponent implements OnInit {
 
   public showSignInButton: boolean;
   public showSignOutButton: boolean;
+  public user: any;
 
   constructor() {
     FB.init({
@@ -41,6 +42,11 @@ export class FacebookLoginComponent implements OnInit {
       (result) => {
         if (result && !result.error) {
           console.log('data from facebook is ---->  ', result);
+          this.user = Object.assign({}, result,
+            {id: result.id},
+            {name: result.name},
+            {imageUrl: result.picture.data.url},
+            {email: result.email});
         }
       });
   }
