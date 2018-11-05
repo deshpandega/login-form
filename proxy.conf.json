@@ -1,0 +1,8 @@
+{
+  "/googleAuth":{
+    "target":"http://localhost:8999/loginservice/v1/google",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel":"debug"
+  }
+}
