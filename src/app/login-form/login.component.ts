@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 import GoogleUser = gapi.auth2.GoogleUser;
-import {Http, Response, RequestOptions, Headers} from '@angular/http';
+import {Service} from '../service';
 
 declare const gapi: any;
 
@@ -12,14 +12,14 @@ declare const gapi: any;
 
 export class LoginComponent implements AfterViewInit {
 
-  private clientId = '223586481538-i4td2oobb1e3iuv3d3r4r0drcbqtrfk1.apps.googleusercontent.com';
+  private clientId = '<GOOGLE_CLIENT_ID>';
 
   public googleAuth: any;
   public isSignedIn: boolean;
   public user: any;
   private googleUser: any;
 
-  constructor(private http: Http) {
+  constructor(private userService: Service) {
   }
 
   ngAfterViewInit() {
@@ -50,35 +50,15 @@ export class LoginComponent implements AfterViewInit {
             {email: profile.getEmail()});
 
           alert('Welcome ' + this.user.name);
-          this.sendDataToDb(this.user);
+          this.userService.sendDataToDb(this.user, 'google');
         } else {
           this.googleAuth.signOut();
           this.isSignedIn = undefined;
+          alert('Sign Out Successfully');
         }
-      }, (error) => {});
-  }
-
-  private sendDataToDb(user) {
-    console.log(user);
-
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
-
-    const requestOptions = new RequestOptions({headers: headers});
-    console.log(requestOptions);
-
-    this.http.post('http://localhost:8999/loginservice/v1/google', JSON.stringify(user), requestOptions).toPromise()
-      .then((res: Response) => {
-      console.log(res);
-      if (res.status === 200) {
-        console.log('values added to database');
-      }
-    }).catch((error) => {
-      console.log(error.json());
-    });
-
+      }, (error) => {
+        console.log(error);
+      });
   }
 
 }

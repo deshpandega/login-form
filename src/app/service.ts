@@ -4,20 +4,24 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class Service {
-  constructor (
-    private http: Http
-  ) {}
+  constructor (private http: Http) {}
 
-  sendDataToDb(user) {
+  sendDataToDb(user, platform) {
     console.log(user);
+    console.log(platform);
+    let url;
+    if (platform === 'google') {
+      url = 'googleAuth';
+    } else if (platform === 'facebook') {
+      url = 'facebookAuth';
+    }
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     const requestOptions = new RequestOptions({headers: headers});
-    console.log(requestOptions);
 
-    this.http.post('/facebookAuth', JSON.stringify(user), requestOptions)
+    this.http.post(url, JSON.stringify(user), requestOptions)
       .toPromise()
       .then((res: Response) => {
         console.log(res);
