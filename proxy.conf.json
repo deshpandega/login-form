@@ -1,8 +1,20 @@
 {
-  "/googleAuth":{
+  "*/googleAuth":{
     "target":"http://localhost:8999/loginservice/v1/google",
-    "secure": false,
     "changeOrigin": true,
-    "logLevel":"debug"
+    "secure": false,
+    "logLevel":"debug",
+    "pathRewrite": {
+      "^/googleAuth": ""
+    }
+  },
+  "*/facebookAuth":{
+    "target":"http://localhost:8999/loginservice/v1/facebook",
+    "changeOrigin": true,
+    "secure": false,
+    "logLevel":"debug",
+    "pathRewrite": {
+      "^/facebookAuth": ""
+    }
   }
 }

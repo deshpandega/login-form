@@ -6,6 +6,7 @@ import { LoginComponent } from './login-form/login.component';
 import { FacebookLoginComponent } from './facebook-login-form/facebook-login.component';
 
 import { AppComponent } from './app.component';
+import {Service} from './service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
