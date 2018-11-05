@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {Service} from '../service';
 
 declare const FB: any;
@@ -18,13 +17,13 @@ export class FacebookLoginComponent implements OnInit {
 
   constructor(private userService: Service) {
     FB.init({
-      appId : '325805861537588',
+      appId : '<FACEBOOK_APP_ID>',
       cookie : false,
       version : 'v2.5'
     });
   }
 
-  onFacebookLoginClick() {
+  onFacebookLogin() {
     FB.login((response: any) => {
       if (response.status === 'connected') {
         this.showSignInButton = false;
@@ -50,12 +49,12 @@ export class FacebookLoginComponent implements OnInit {
             {imageUrl: result.picture.data.url},
             {email: result.email});
 
-          this.userService.sendDataToDb(this.user);
+          this.userService.sendDataToDb(this.user, 'facebook');
         }
       });
   }
 
-  onFacebookLogoutClick() {
+  onFacebookLogout() {
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
         FB.logout( () => {

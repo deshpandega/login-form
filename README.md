@@ -1,31 +1,50 @@
 # LoginForm
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
+This project is generated with [angular-cli](https://github.com/angular/angular-cli).
+You will need to install [node](https://nodejs.org/en/download/) and npm.
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This is only the frontend part of the application. 
+In order to run the entire stack, please also start the backend application and the cassandra database instance.
 
-## Code scaffolding
+Backend Application can be found [here](https://github.com/deshpandega/login-service).
+Also look for instructions to download and run cassandra instance.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+------------
 
-## Build
+### Install Dependencies
+In order to test this application, please install all dependencies:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+`npm install`
 
-## Running unit tests
+------------
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Facebook and Google API keys
+In order to run authentication using Facebook and Google, we need to add Facebook App ID and Google Client ID.
+Add Facebook App ID in src/app/facebook-login-form/facebook-login.component.ts and Google Client ID in src/app/login-form/login.component.ts
+From security point of view, I am not adding these IDs in this repository.
 
-## Running end-to-end tests
+------------
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+### Development Server
+This app uses proxy to avoid CORS problem.
+In order to run the app, run the following command:
 
-## Deploying to GitHub Pages
+`npm start`
 
-Run `ng github-pages:deploy` to deploy to GitHub Pages.
+Navigate to http://localhost:4200 to run the instance 
 
-## Further help
+------------
 
-To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Implementations
+- The application has working functionality to sign in using Facebook credentials.
+- Please use the following Facebook test users to sign in to application:
+
+> **Test Users**
+> - mark_togwifl_one@tfbnw.net           P@ssword123
+> - aiden_hltivge_two@tfbnw.net          P@ssword123
+> - christopher_kerdxzd_three@tfbnw.net  P@ssword123
+
+- You can also use your own facebook credentials to login.
+
+- The application also has complete functionality to sign in using Google credentials,
+ but this part is kept disabled because of a bug in which user can't see his details on screen after login.
