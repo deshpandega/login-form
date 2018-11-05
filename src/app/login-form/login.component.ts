@@ -19,7 +19,7 @@ export class LoginComponent implements AfterViewInit {
   public user: any;
   private googleUser: any;
 
-  constructor(public http: Http) {
+  constructor(private http: Http) {
   }
 
   ngAfterViewInit() {
@@ -39,7 +39,6 @@ export class LoginComponent implements AfterViewInit {
   public getSignedInUser(element) {
       this.googleAuth.attachClickHandler(element, {}, (googleUser: GoogleUser) => {
         if (this.isSignedIn === undefined) {
-          alert('sign in');
           this.googleUser = googleUser;
           this.isSignedIn = this.googleUser.isSignedIn();
           const profile = googleUser.getBasicProfile();
@@ -50,23 +49,36 @@ export class LoginComponent implements AfterViewInit {
             {imageUrl: profile.getImageUrl()},
             {email: profile.getEmail()});
 
+          alert('Welcome ' + this.user.name);
           this.sendDataToDb(this.user);
         } else {
-          alert('sign out');
           this.googleAuth.signOut();
           this.isSignedIn = undefined;
         }
       }, (error) => {});
   }
 
-  // public signOutUser() {
-  //   this.googleAuth.signOut();
-  //   this.isSignedIn = undefined;
-  // }
-
   private sendDataToDb(user) {
-    alert('send values to DB');
     console.log(user);
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Access-Control-Allow-Origin', 'http://localhost:4200');
+
+    const requestOptions = new RequestOptions({headers: headers});
+    console.log(requestOptions);
+
+    this.http.post('http://localhost:8999/loginservice/v1/google', JSON.stringify(user), requestOptions).toPromise()
+      .then((res: Response) => {
+      console.log(res);
+      if (res.status === 200) {
+        console.log('values added to database');
+      }
+    }).catch((error) => {
+      console.log(error.json());
+    });
+
   }
 
 }
